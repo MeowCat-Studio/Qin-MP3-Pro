@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Qin MP3 Desktop</title>
+    <link href="css/material.min.css" media="screen,projection" rel="stylesheet" type="text/css"/>
+    <link href="css/style.css" media="screen,projection" rel="stylesheet" type="text/css"/>
+</head>
+<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+<div class="load-complete" id="site-loader">
+    <div class="load-position">
+        <h6>系统正在启动...</h6>
+        <div class="loading">
+            <div class="loading-line mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+        </div>
+    </div>
+</div>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <main class="mdl-layout__content">
+        <div class="page-content"><!-- Your content goes here --></div>
+    </main>
+</div>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <span class="mdl-layout-title" id="text">Qin MP<span id="number">3</span> Desktop</span>
+            <div class="mdl-layout-spacer"></div>
+            <nav class="mdl-navigation">
+                <span id="battery_text">100</span>%
+                <i class="material-icons" id="battery_icon">battery_unknown</i>
+            </nav>
+        </div>
+    </header>
+<!--    <div class="mdl-layout__drawer">-->
+<!--        <nav class="mdl-navigation">-->
+<!--            Placeholder-->
+<!--        </nav>-->
+<!--    </div>-->
+    <main class="mdl-layout__content">
+        <div class="mdl-layout__tab-panel is-active" id="overview">
+            <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                <div class="mdl-card mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card__supporting-text">
+                        <span class="minecraft" id="time"></span>
+                        <br/>
+                        <span class="minecraft" id="date"></span>
+                    </div>
+                </div>
+            </section>
+            <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                <div class="mdl-card mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card__actions mdl-card--border">
+                        <ul class="mdl-list">
+                            <li class="mdl-list__item mdl-button mdl-js-button mdl-js-ripple-effect" id="btn_remote">
+                                <i class="material-icons">settings_remote</i>
+							    <span class="mdl-list__item-primary-content">&nbsp;遥控</span>
+                            </li>
+                            <li class="mdl-list__item mdl-button mdl-js-button mdl-js-ripple-effect" id="btn_music">
+                                <i class="material-icons">music_note</i>
+                                <span class="mdl-list__item-primary-content">&nbsp;音乐</span>
+                            </li>
+                            <li class="mdl-list__item mdl-button mdl-js-button mdl-js-ripple-effect" id="btn_assistant">
+                                <i class="material-icons">assistant</i>
+                                <span class="mdl-list__item-primary-content">&nbsp;语音助手</span>
+                            </li>
+                            <li class="mdl-list__item mdl-button mdl-js-button mdl-js-ripple-effect" id="btn_note">
+                                <i class="material-icons">event_note</i>
+                                <span class="mdl-list__item-primary-content">&nbsp;便签</span>
+                            </li>
+                            <li class="mdl-list__item mdl-button mdl-js-button mdl-js-ripple-effect" id="btn_files">
+                                <i class="material-icons">folder</i>
+                                <span class="mdl-list__item-primary-content">&nbsp;文件</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="left down">
+            <label class="mdl-button mdl-js-button mdl-button--icon" id="btn_record">
+                <i class="material-icons">mic</i>
+            </label>
+        </div>
+        <div class="right down" id="">
+            <label class="mdl-button mdl-js-button mdl-button--icon" id="btn_camera">
+                <i class="material-icons">camera_alt</i>
+            </label>
+        </div>
+    </main>
+</div>
+<div class="mdl-js-snackbar mdl-snackbar" id="toast">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
+</div>
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/material.min.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</body>
+</html>

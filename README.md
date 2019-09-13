@@ -10,7 +10,7 @@ Become a MP3
 ### Layout
 [meowcat.html](app/src/main/assets/meowcat/meowcat.html)
 
-[style.css](app/src/main/assets/meowcat/css/style.css
+[style.css](app/src/main/assets/meowcat/css/style.css)
 
 ### Community
 - QQ Group: [776985781](https://jq.qq.com/?_wv=1027&k=5kvtmLi)

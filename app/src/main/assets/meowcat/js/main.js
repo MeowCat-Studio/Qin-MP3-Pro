@@ -32,14 +32,14 @@ $(document).ready(
                 window.java.startApplication("com.xiaomi.xiaoailite");
             }
         );
-        $("#btn_note").click(
-            function () {
-                window.java.startApplication("com.smartisan.notes");
-            }
-        );
         $("#btn_files").click(
             function () {
                 window.java.startApplication("com.android.documentsui");
+            }
+        );
+        $("#device_info").click(
+            function() {
+                alert("设备信息:机型：" + window.java.getStringInfo("DeviceModel") + "\n厂商：" + window.java.getStringInfo("DeviceBrand") + "\n硬件版本：" + window.java.getStringInfo("DeviceSDK") + "\n软件版本：" + window.java.getStringInfo("Version") + "\n© 2013-2019 MeowCat Studio 版权所有");
             }
         );
         $("#text").click(
@@ -53,7 +53,6 @@ $(document).ready(
                 }
                 timeout = window.setTimeout(function () {
                     clickTime = 3;
-                    showSnackbar("#toast", "click times reset");
                     $("#number").html(clickTime);
                 }, 5000);
             }
@@ -122,17 +121,33 @@ function displayTime() {
     $("#date").html(date.getFullYear() + " / " + month + " / " + dat + "<br />" + day);
 
     // Battery module
-    let battery = window.java.batteryInfo();
-    let batteryState = window.java.batteryState();
-    $("#battery_text").html(battery);
-    if (batteryState !== 3) {
+    let batteryNumber = window.java.getIntInfo("BatteryNumber");
+    let batteryStatus = window.java.getIntInfo("BatteryStatus");
+    $("#battery_text").html(batteryNumber);
+    if (batteryStatus !== 3) {
         $("#battery_icon").html("battery_charging_full");
     } else {
-        if (battery <= 20) {
+        if (batteryNumber <= 20) {
             $("#battery_icon").html("battery_alert");
         } else {
             $("#battery_icon").html("battery_full");
         }
+    }
+
+    // Status module
+    let headset = $("#headset");
+    let headsetStatus = window.java.getIntInfo("HeadSet");
+    if (headsetStatus !== 0) {
+        headset.show();
+        if (headsetStatus === 1) {
+            headset.html("headset");
+        } else if (headsetStatus === 2) {
+            headset.html("headset_mic");
+        } else {
+            headset.hide();
+        }
+    } else {
+        headset.hide();
     }
     setTimeout(displayTime, 100);
 }

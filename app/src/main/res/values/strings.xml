@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Qin MP3 Desktop</string>
+    <string name="app_name">Qin MP3 Pro</string>
     <string name="about">About</string>
     <string name="about_desc">Author: MlgmXyysd</string>
     <string name="ok">Okay</string>
+    <string name="device_info">Device Info</string>
 </resources>

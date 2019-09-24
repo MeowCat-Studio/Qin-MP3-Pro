@@ -47,7 +47,9 @@ $(document).ready(
                 window.clearTimeout(timeout);
                 clickTime += 1;
                 if (clickTime >= 10) {
-                    window.java.finish();
+                    window.java.startApplication("com.duoqin.launcher", "com.duoqin.launcher.activity.LauncherActivity");
+                    clickTime = 3;
+                    $("#number").html(clickTime);
                 } else {
                     $("#number").html(clickTime);
                 }

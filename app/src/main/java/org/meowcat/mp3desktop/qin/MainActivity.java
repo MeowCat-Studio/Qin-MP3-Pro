@@ -1,10 +1,10 @@
 package org.meowcat.mp3desktop.qin;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SearchRecentSuggestionsProvider;
 import android.content.pm.PackageManager;
 import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
@@ -23,17 +23,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
 
-
 public class MainActivity extends AppCompatActivity {
 
     BatteryManager mBatteryManager;
     AudioManager mAudioManager;
     WebView mWebView;
-    boolean confirmFinish = false;
     long keyDownTimestamp = 0;
 
     public static void openApp(Context context, String packageName) {
         final Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+        Objects.requireNonNull(intent).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        context.startActivity(intent);
+    }
+
+    public static void openApp(Context context, String packageName, String activityName) {
+        Intent intent = new Intent().setComponent(new ComponentName(packageName, activityName));
         Objects.requireNonNull(intent).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
         context.startActivity(intent);
     }
@@ -88,31 +92,17 @@ public class MainActivity extends AppCompatActivity {
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_DOWN:
-                if (keyDownTimestamp == 0) {
-                    return true;
-                } else {
-                    long keyUpTimestamp = System.currentTimeMillis();
-                    if (keyUpTimestamp - keyDownTimestamp >= 6000) {
-                        keyDownTimestamp = 0;
-                        confirmFinish = true;
-                        finish();
-                    } else {
-                        keyDownTimestamp = 0;
-                    }
-                    return true;
-                }
             case KeyEvent.KEYCODE_VOLUME_UP:
+            case KeyEvent.KEYCODE_HOME:
+            case KeyEvent.KEYCODE_APP_SWITCH:
+            case KeyEvent.KEYCODE_BACK:
                 return true;
             default:
                 return super.onKeyUp(keyCode, event);
         }
     }
 
-    public void finish() {
-        if (confirmFinish) {
-            super.finish();
-        }
-    }
+    public void finish() {}
 
     @SuppressWarnings("unused")
     public class JavaScript {
@@ -121,6 +111,16 @@ public class MainActivity extends AppCompatActivity {
             try {
                 getPackageManager().getPackageInfo(packageName, PackageManager.GET_GIDS);
                 openApp(getApplicationContext(), packageName);
+            } catch (PackageManager.NameNotFoundException e) {
+                Toast.makeText(MainActivity.this, "组件" + packageName + "缺失，无法启动。", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @JavascriptInterface
+        public void startApplication(final String packageName, final String activityName) {
+            try {
+                getPackageManager().getPackageInfo(packageName, PackageManager.GET_GIDS);
+                openApp(getApplicationContext(), packageName, activityName);
             } catch (PackageManager.NameNotFoundException e) {
                 Toast.makeText(MainActivity.this, "组件" + packageName + "缺失，无法启动。", Toast.LENGTH_SHORT).show();
             }
@@ -165,12 +165,6 @@ public class MainActivity extends AppCompatActivity {
                 default:
                     return 0;
             }
-        }
-
-        @JavascriptInterface
-        public void finish() {
-            confirmFinish = true;
-            MainActivity.this.finish();
         }
     }
 }
